@@ -8,7 +8,7 @@ export class GameService {
   public currentRound: GameRound | null = null;
 
   constructor() {
-    const words = ['at','cat','mat','sat','sam','am','cam','tam','tac','mac','dad','had','fad','fat','hat','pat','pal','gal','gap','lap','zap','map','man','jan','jam','ram','ran','van','ban','pan','got','lot','log','dog','cog','cod','cot','tot','tom','mom','wow','how','now','bow','boss','toss','loss','lot','hot','hop','tom','top','pop','pod','tod','toss','ross','rod','rot','not','mud','mug','lug','dug','hug','hum','sum','gum','gus','gull','tug','bug','dug','duck','luck','tuck','tub','cub','cut','nut','hut','cut','but','bud','buzz','bug','pug','pup','cup','cud','pet','met','meg','leg','let','get','bet','beg','peg','pen','set','jet','let','led','jed','bed','ben','ten','jen','ken','wet','net','ned','red','ted','ten','pen','pet','vet','set'];
+    const words = ['at','cat','mat','sat','sam','am','cam','tam','tac','mac','dad','had','fad','fat','hat','pat','pal','gal','gap','lap','zap','map','man','jan','jam','ram','ran','van','ban','pan','got','lot','log','dog','cog','cod','cot','tot','tom','mom','wow','how','now','bow','boss','toss','loss','lot','hot','hop','tom','top','pop','pod','tod','rod','rot','not','mud','mug','lug','dug','hug','hum','sum','gum','gus','gull','tug','bug','dug','duck','luck','tuck','tub','cub','cut','nut','hut','cut','but','bud','buzz','bug','pug','pup','cup','cud','pet','met','meg','leg','let','get','bet','beg','peg','pen','set','jet','let','led','jed','bed','ben','ten','jen','ken','wet','net','ned','red','ted','ten','pen','pet','vet','set','sad','tap','net','dot','dog','bag','dig','ram','hug'];
     this.wordList = new WordList(words);
     this.playerStats = new PlayerStats();
   }

@@ -7,7 +7,6 @@ import startScreenHtml from './views/start-screen.html';
 import gameScreenHtml from './views/game-screen.html';
 import successScreenHtml from './views/success-screen.html';
 import gameOverScreenHtml from './views/game-over-screen.html';
-import {download, predict} from '@diffusionstudio/vits-web';
 
 export class Game {
     private gameService = new GameService();
@@ -52,6 +51,7 @@ export class Game {
 
         if (this.gameService.isRoundOver()) {
             if (this.gameService.didPlayerWin()) {
+                this.gameService.nextRound();
                 this.gameScreen.hide();
                 this.successScreen.show(this.gameService.playerStats.roundsWon);
                 this.currentScreen = 'success-screen';
@@ -63,10 +63,6 @@ export class Game {
         } else {
             const nextWord = this.gameService.currentRound!.words[this.gameService.currentRound!.currentWordIndex];
             this.gameScreen.setWord(nextWord);
-            this.audio.src = URL.createObjectURL(await predict({
-                text: nextWord,
-                voiceId: 'en_US-hfc_female-medium',
-            }));
             this.playAudio(nextWord);
         }
     }
@@ -77,14 +73,12 @@ export class Game {
     }
 
     playAudio(word: string) {
-        // Use a text-to-speech API or pre-recorded audio files
-        console.log(`Playing audio for: ${word}`);
+        this.audio.src = `audio/${word}.mp3`;
         this.audio.play();
     }
 
     nextRound() {
         this.successScreen.hide();
-        this.gameService.nextRound();
         const nextWord = this.gameService.currentRound!.words[this.gameService.currentRound!.currentWordIndex];
         this.gameScreen.setWord(nextWord);
         this.playAudio(nextWord);
@@ -104,7 +98,3 @@ export class Game {
 }
 
 new Game();
-
-download('en_US-lessac-medium', (progress) => {
-    console.log(`Downloading ${progress.url} - ${Math.round(progress.loaded * 100 / progress.total)}%`);
-});

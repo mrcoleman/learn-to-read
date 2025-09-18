@@ -4,6 +4,9 @@ export class GameScreen {
   private wordInput: HTMLInputElement;
   private replayAudioButton: HTMLElement;
   private innerScreen: HTMLElement;
+  private heroAnimationElement: HTMLElement;
+  private monsterAnimationElement: HTMLElement;
+  private attackButton: HTMLElement;
 
   constructor(element: HTMLElement, private onAnswer: (answer: string) => void, private onReplayAudio: () => void) {
     this.element = element;
@@ -11,6 +14,9 @@ export class GameScreen {
     this.wordInput = this.element.querySelector('#word-input')!;
     this.replayAudioButton = this.element.querySelector('#replay-audio-button')!;
     this.innerScreen = this.element.querySelector('#inner-screen')!;
+    this.heroAnimationElement = this.element.querySelector('#hero-animation')!;
+    this.monsterAnimationElement = this.element.querySelector('#monster-animation')!;
+    this.attackButton = this.element.querySelector('#attack-button')!;
     this.wordInput.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
         this.onAnswer(this.wordInput.value);
@@ -19,6 +25,10 @@ export class GameScreen {
     });
     
     this.replayAudioButton.addEventListener('click', this.onReplayAudio);
+    this.attackButton.addEventListener('click', () => {
+      this.onAnswer(this.wordInput.value);
+      this.wordInput.value = '';
+    });
   }
 
   show() {
@@ -36,18 +46,18 @@ export class GameScreen {
   }
   
   playHeroAttackAnimation() {
-    const heroAnimationElement = this.element.querySelector('#hero-animation')!;
-    heroAnimationElement.textContent = 'Hero attacks!';
+    
+    this.heroAnimationElement.style.display = 'block';
     setTimeout(() => {
-      heroAnimationElement.textContent = '';
+      this.heroAnimationElement.style.display = 'none';
     }, 1000);
   }
   
   playMonsterAttackAnimation() {
-    const monsterAnimationElement = this.element.querySelector('#monster-animation')!;
-    monsterAnimationElement.textContent = 'Monster attacks!';
+    
+    this.monsterAnimationElement.style.display = 'block';
     setTimeout(() => {
-      monsterAnimationElement.textContent = '';
+      this.monsterAnimationElement.style.display = 'none';
     }, 1000);
   }
 }

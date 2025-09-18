@@ -1,8 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  context: __dirname,
   entry: './src/main.ts',
   module: {
     rules: [
@@ -16,7 +18,7 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        loader: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
@@ -32,6 +34,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Word Fight',
       template: './src/index.html'
-    })
-  ]
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'audio', to: 'audio' },
+        { from: 'image', to: 'image' },
+      ],
+    }),
+  ],
 };
